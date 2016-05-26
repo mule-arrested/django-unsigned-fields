@@ -9,9 +9,14 @@ from django.db.models.fields.related import (
     OneToOneField,
     ManyToManyField,
     add_lazy_relation,
-    ReverseManyRelatedObjectsDescriptor,
     RECURSIVE_RELATIONSHIP_CONSTANT,
 )
+try:
+    from django.db.models.fields.related import ReverseManyRelatedObjectsDescriptor as RelatedDescriptor
+except:
+    # for Django >= 1.9
+    from django.db.models.fields.related_descriptors import ManyToManyDescriptor as RelatedDescriptor
+
 from django.utils.translation import ugettext as _
 from django.utils.functional import curry
 
@@ -52,7 +57,7 @@ class UnsignedManyToManyField(ManyToManyField):
             self.rel.through = create_many_to_many_intermediary_model(self, cls)
 
         # Add the descriptor for the m2m relation
-        setattr(cls, self.name, ReverseManyRelatedObjectsDescriptor(self))
+        setattr(cls, self.name, RelatedDescriptor(self))
 
         # Set up the accessor for the m2m table name for the relation
         self.m2m_db_table = curry(self._get_m2m_db_table, cls._meta)
