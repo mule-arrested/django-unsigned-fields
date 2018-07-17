@@ -7,7 +7,7 @@ except ImportError:
 
 RECURSIVE_RELATIONSHIP_CONSTANT = 'self'
 
-if django.VERSION[1] in [7, 8, 9, 10]:
+if django.VERSION[1] in [7, 8, 9, 10, 11]:
     def create_many_to_many_intermediary_model(field, klass):
         """
         This function is a large copy/paste from django in order to construct
