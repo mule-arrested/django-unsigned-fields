@@ -16,6 +16,7 @@ Django fields for using unsigned integers for relationships"
 Documentation
 -------------
 
+Hopefully, bumped to django 2.2
 The full documentation is at https://django-unsigned-fields.readthedocs.org.
 
 Quickstart
